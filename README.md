@@ -1,8 +1,8 @@
 # CosmoOS launch site
 
 A static, single-page launch site for **CosmoOS** ("Your universe. One workspace."), the creator operating system
-for brand deals. Plain HTML, CSS and a few lines of JavaScript: no build step, no framework, no third-party requests
-at runtime (the Manrope font is self-hosted).
+for brand deals. Plain HTML and CSS: no build step, no framework. The only third-party code is Hostinger Reach's form embed
+script; the Manrope font is self-hosted.
 
 ## Run it locally
 
@@ -12,23 +12,22 @@ python -m http.server 4321 --directory D:\AI\cosmoos-launch
 
 Then open http://localhost:4321. Opening `index.html` directly from disk also works.
 
-## Turn on the waitlist (Hostinger Reach)
+## Waitlist (Hostinger Reach)
 
-Signups go to **Hostinger Reach** through a small relay in [`worker/`](worker/README.md): a free Cloudflare Worker
-that holds your Hostinger API token as an encrypted secret and adds each email to your Reach profile. The token is
-never in the page or the repository; it has your full account permissions, so it must stay server-side.
+Both waitlist spots (hero and closing band) embed the **Hostinger Reach** signup form `CosmoOs`
+(form ID `34a947fa-79d6-45b9-97e0-df93e1c061fc`, profile `cosmoos.tech`). The page loads
+`https://cdn-reach.hostinger.com/js/embed.js`, which turns each `<div data-reach-form="…">` into an iframe served
+from `reach-forms.hostingerusercontent.com`. Reach handles the submission, validation, double opt-in (if enabled)
+and the thank-you state, so the site holds no API token and no form code of its own. Without JavaScript, a
+`<noscript>` link opens the hosted form instead.
 
-Until the relay URL is set, both forms stay hidden and the page shows "The waitlist opens soon", so visitors never
-meet a dead button. Setup takes a few minutes: create the token, find your Reach profile ID, deploy the Worker, then
-paste its URL into the one setting in `index.html`:
-
-```html
-<meta name="waitlist-endpoint" content="https://cosmoos-waitlist.<your-subdomain>.workers.dev" />
-```
-
-Step-by-step instructions, the response table and the leak procedure are in [worker/README.md](worker/README.md).
-The page tells visitors their email is used only to invite them to early access: keep it that way, or update that
-sentence and add a privacy notice before collecting more. Turning on double opt-in in Reach is recommended.
+- **Signups** appear in Reach under Contacts, tagged `form:CosmoOs` and `waitlist`.
+- **Form design** (colours, copy, button) lives in Reach, not in this repository. It was set to match the page:
+  navy `#101B2D` background, teal `#20B8B0` button, 10px radius. Edit it in Reach → Forms; after editing an active
+  form, pause it and set it active again to publish the change.
+- **Turning the waitlist off:** pause the form in Reach. The iframe then stops accepting submissions.
+- The form says the email is used only to invite people to early access: keep it that way, or update that sentence
+  in Reach and add a privacy notice before collecting more. Turning on double opt-in in Reach is recommended.
 
 ## Deploy on GitHub Pages
 
@@ -36,15 +35,13 @@ sentence and add a privacy notice before collecting more. Turning on double opt-
    `/ (root)`, and save.
 2. The site is served at **https://cosmoos.tech** (custom domain from the `CNAME` file; DNS at Hostinger points the
    apex A/AAAA records at GitHub Pages and `www` at `jarihant701.github.io`). `jarihant701.github.io/cosmoos-launch/`
-   redirects there. The relay allows `https://cosmoos.tech`, `https://www.cosmoos.tech` and
-   `https://jarihant701.github.io`. Turn on **Enforce HTTPS** in Settings → Pages once the certificate is issued.
+   redirects there. Turn on **Enforce HTTPS** in Settings → Pages once the certificate is issued.
 
 GitHub Pages from a **private** repository needs a paid GitHub plan (Pro, Team or Enterprise). On a free plan, make
 the repository public first (Settings → General → Danger Zone → Change visibility). The repository contains no
-secrets, so that is safe as long as the token only ever lives in the Worker secret.
+secrets, so that is safe.
 
-Any other static host (Cloudflare Pages, Netlify, Hostinger web hosting) also works: upload the folder as-is and add
-the new site origin to `ALLOWED_ORIGINS` in `worker/wrangler.toml`.
+Any other static host (Cloudflare Pages, Netlify, Hostinger web hosting) also works: upload the folder as-is.
 
 ## Files
 
@@ -52,9 +49,6 @@ the new site origin to `ALLOWED_ORIGINS` in `worker/wrangler.toml`.
 |---|---|
 | `index.html` | The page: hero with the feedback-check demonstration, deal flow, features, principles, FAQ, waitlist. |
 | `styles.css` | All styling. Tokens follow the app's DESIGN.md: teal `#20B8B0`, midnight navy `#101B2D`, Manrope, 10px radius. |
-| `site.js` | Waitlist behaviour: reads the endpoint, submits with `fetch`, shows success or a retryable error. |
-| `worker/` | Cloudflare Worker relay to Hostinger Reach, its config (`wrangler.toml`), setup guide and tests. |
-| `package.json` | `npm test` runs the relay tests with Node's built-in runner (no dependencies). |
 | `favicon.svg`, `assets/brand/` | App mark (SVG) and PNG icons (192, 512). |
 | `assets/fonts/` | Manrope variable font (Latin and Latin Extended subsets) and its SIL Open Font License (`OFL.txt`). |
 
@@ -69,6 +63,5 @@ the new site origin to `ALLOWED_ORIGINS` in `worker/wrangler.toml`.
 
 ## Accessibility
 
-Semantic landmarks and headings, a skip link, labelled form fields, visible focus, live status messages for the
-form, WCAG AA text contrast (checked with Impeccable's detector), and no motion when the visitor prefers reduced
+Semantic landmarks and headings, a skip link, labelled form fields (the Reach form's email field carries an `aria-label`), visible focus, WCAG AA text contrast (checked with Impeccable's detector), and no motion when the visitor prefers reduced
 motion.

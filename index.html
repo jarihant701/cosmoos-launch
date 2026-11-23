@@ -9,9 +9,6 @@
       content="CosmoOS is a creator operating system for brand deals: plan content, draft with AI you review, and check client feedback against the brief you approved. Join the waitlist for early access."
     />
     <meta name="theme-color" content="#101B2D" />
-    <!-- Waitlist: paste the URL of the waitlist relay (worker/, e.g. https://cosmoos-waitlist.<you>.workers.dev).
-         While it is empty, both waitlist forms stay hidden and the page says the waitlist opens soon. -->
-    <meta name="waitlist-endpoint" content="" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="icon" type="image/png" sizes="192x192" href="assets/brand/icon-192.png" />
     <link rel="apple-touch-icon" href="assets/brand/icon-192.png" />
@@ -24,7 +21,8 @@
     <meta property="og:image" content="assets/brand/icon-512.png" />
     <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="styles.css" />
-    <script src="site.js" defer></script>
+    <!-- Waitlist: Hostinger Reach signup form "CosmoOs", embedded in an iframe (see README). -->
+    <script src="https://cdn-reach.hostinger.com/js/embed.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -57,28 +55,8 @@
               was actually agreed.
             </p>
 
-            <form class="waitlist" data-waitlist method="POST" aria-labelledby="hero-form-title" hidden>
-              <h2 class="sr-only" id="hero-form-title">Join the waitlist</h2>
-              <div class="waitlist__row">
-                <label class="sr-only" for="hero-email">Email address</label>
-                <input
-                  id="hero-email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  inputmode="email"
-                  placeholder="you@example.com"
-                  required
-                />
-                <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                <button class="btn" type="submit">Join the waitlist</button>
-              </div>
-              <p class="waitlist__note">Early access is opening in stages. We use your email only to invite you.</p>
-              <p class="waitlist__status" role="status" aria-live="polite"></p>
-            </form>
-            <p class="waitlist__closed" data-waitlist-closed>
-              The waitlist opens soon. Check back here for early access.
-            </p>
+            <div class="waitlist" data-reach-form="34a947fa-79d6-45b9-97e0-df93e1c061fc" aria-label="Join the waitlist"></div>
+            <noscript><p class="waitlist__closed"><a href="https://reach-forms.hostingerusercontent.com/form/34a947fa-79d6-45b9-97e0-df93e1c061fc">Join the waitlist</a></p></noscript>
           </div>
 
           <figure class="demo" aria-labelledby="demo-title">
@@ -293,27 +271,8 @@
         <div class="wrap join__inner">
           <img class="join__mark" src="assets/brand/logo.svg" alt="" width="72" height="72" />
           <h2 id="join-title">Bring your plans, projects and clients into one orbit.</h2>
-          <form class="waitlist waitlist--center" data-waitlist method="POST" aria-labelledby="join-title" hidden>
-            <div class="waitlist__row">
-              <label class="sr-only" for="join-email">Email address</label>
-              <input
-                id="join-email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                inputmode="email"
-                placeholder="you@example.com"
-                required
-              />
-              <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
-              <button class="btn" type="submit">Join the waitlist</button>
-            </div>
-            <p class="waitlist__note">We use your email only to invite you to early access.</p>
-            <p class="waitlist__status" role="status" aria-live="polite"></p>
-          </form>
-          <p class="waitlist__closed" data-waitlist-closed>
-            The waitlist opens soon. Check back here for early access.
-          </p>
+          <div class="waitlist waitlist--center" data-reach-form="34a947fa-79d6-45b9-97e0-df93e1c061fc" aria-label="Join the waitlist"></div>
+          <noscript><p class="waitlist__closed"><a href="https://reach-forms.hostingerusercontent.com/form/34a947fa-79d6-45b9-97e0-df93e1c061fc">Join the waitlist</a></p></noscript>
         </div>
       </section>
     </main>
