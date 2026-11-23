@@ -26,8 +26,13 @@ and the thank-you state, so the site holds no API token and no form code of its 
   navy `#101B2D` background, teal `#20B8B0` button, 10px radius. Edit it in Reach → Forms; after editing an active
   form, pause it and set it active again to publish the change.
 - **Turning the waitlist off:** pause the form in Reach. The iframe then stops accepting submissions.
-- The form says the email is used only to invite people to early access: keep it that way, or update that sentence
-  in Reach and add a privacy notice before collecting more. Turning on double opt-in in Reach is recommended.
+- **Privacy:** [`privacy.html`](privacy.html) is the privacy notice (India DPDP Act 2023 and GDPR basics: what is
+  collected, why, Hostinger and GitHub as processors, retention, rights, contact `hello@cosmoos.tech`). A consent line
+  under each form links to it, the footer links to it, and Reach's profile `privacy_policy_url` points at it. Update the
+  notice and its "Last updated" date before collecting anything beyond an email address or using it for a new
+  purpose. It has not been reviewed by a lawyer.
+- **Emails:** Reach sends as `CosmoOS <hello@cosmoos.tech>`. On the Reach 100 plan, automations and transactional
+  emails are locked, so the only automatic email is the double opt-in confirmation.
 
 ## Deploy on GitHub Pages
 
@@ -48,6 +53,7 @@ Any other static host (Cloudflare Pages, Netlify, Hostinger web hosting) also wo
 | Path | Purpose |
 |---|---|
 | `index.html` | The page: hero with the feedback-check demonstration, deal flow, features, principles, FAQ, waitlist. |
+| `privacy.html` | Privacy notice for the waitlist, linked from the forms and footer. |
 | `styles.css` | All styling. Tokens follow the app's DESIGN.md: teal `#20B8B0`, midnight navy `#101B2D`, Manrope, 10px radius. |
 | `favicon.svg`, `assets/brand/` | App mark (SVG) and PNG icons (192, 512). |
 | `assets/fonts/` | Manrope variable font (Latin and Latin Extended subsets) and its SIL Open Font License (`OFL.txt`). |

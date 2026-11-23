@@ -181,8 +181,22 @@ img {
 .waitlist {
   max-width: 520px;
 }
+.waitlist__consent {
+  max-width: 520px;
+  margin: 8px 0 0;
+  color: var(--on-navy-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.waitlist__consent a,
 .waitlist__closed a {
   color: var(--teal);
+}
+.join .waitlist__consent {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
 .waitlist__closed {
   max-width: 520px;
@@ -720,4 +734,51 @@ img {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ---------- Legal pages ---------- */
+
+.legal {
+  padding: 56px 0 88px;
+  background: var(--starlight);
+  color: var(--ink);
+}
+.legal__inner {
+  max-width: calc(44rem + 2 * var(--gutter));
+}
+.legal h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+.legal__meta {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.legal h2 {
+  margin-top: 40px;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.legal p,
+.legal ul {
+  margin-top: 12px;
+  line-height: 1.65;
+}
+.legal ul {
+  padding-left: 1.25rem;
+}
+.legal li + li {
+  margin-top: 6px;
+}
+.legal a {
+  color: var(--teal-ink);
+  font-weight: 600;
+}
+.legal__back {
+  margin-top: 48px;
+}
+.masthead__bar > .brand + .btn {
+  margin-left: auto;
 }
