@@ -689,6 +689,26 @@ img {
   padding-top: 28px;
   padding-bottom: 28px;
 }
+.footer__bar p {
+  margin: 0;
+}
+.social {
+  display: flex;
+  gap: 16px;
+}
+.social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--on-navy);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 120ms var(--ease);
+}
+.social a:hover {
+  color: var(--teal);
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {
