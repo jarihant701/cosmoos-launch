@@ -1,0 +1,16 @@
+# Cloudflare Worker: CosmoOS waitlist relay to Hostinger Reach. See worker/README.md.
+name = "cosmoos-waitlist"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Origins allowed to post to the relay (comma-separated). The site is served at https://cosmoos.tech (GitHub Pages
+# custom domain; jarihant701.github.io redirects there). www is included in case visitors land on it directly.
+ALLOWED_ORIGINS = "https://cosmoos.tech,https://www.cosmoos.tech,https://jarihant701.github.io"
+# Reach profile to add contacts to. Find it with GET /api/reach/v1/profiles (see worker/README.md).
+REACH_PROFILE_UUID = "e2736f09-ef3c-45cb-bab8-4ddeaae8ecf9"
+# Optional: an existing Reach tag to attach to every waitlist signup (the "waitlist" tag).
+REACH_TAG_UUID = "2eabd701-c70d-49c6-9ee4-93b44c9b6405"
+
+# HOSTINGER_API_TOKEN is a SECRET. Never put it in this file. Set it with:
+#   npx wrangler secret put HOSTINGER_API_TOKEN

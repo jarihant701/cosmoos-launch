@@ -12,35 +12,39 @@ python -m http.server 4321 --directory D:\AI\cosmoos-launch
 
 Then open http://localhost:4321. Opening `index.html` directly from disk also works.
 
-## Turn on the waitlist
+## Turn on the waitlist (Hostinger Reach)
 
-The waitlist forms post to a form service you control. Until an endpoint is set, both forms stay hidden and the page
-shows "The waitlist opens soon", so visitors never meet a dead button.
+Signups go to **Hostinger Reach** through a small relay in [`worker/`](worker/README.md): a free Cloudflare Worker
+that holds your Hostinger API token as an encrypted secret and adds each email to your Reach profile. The token is
+never in the page or the repository; it has your full account permissions, so it must stay server-side.
 
-1. Create a free form on a service that accepts a plain POST and answers JSON when sent `Accept: application/json`,
-   for example [Formspree](https://formspree.io), Getform or Basin. Formspree gives you a URL like
-   `https://formspree.io/f/abcd1234`.
-2. Paste that URL into the one setting in `index.html`:
+Until the relay URL is set, both forms stay hidden and the page shows "The waitlist opens soon", so visitors never
+meet a dead button. Setup takes a few minutes: create the token, find your Reach profile ID, deploy the Worker, then
+paste its URL into the one setting in `index.html`:
 
-   ```html
-   <meta name="waitlist-endpoint" content="https://formspree.io/f/abcd1234" />
-   ```
+```html
+<meta name="waitlist-endpoint" content="https://cosmoos-waitlist.<your-subdomain>.workers.dev" />
+```
 
-3. Reload the page and submit a test address. Entries appear in the form service's dashboard.
+Step-by-step instructions, the response table and the leak procedure are in [worker/README.md](worker/README.md).
+The page tells visitors their email is used only to invite them to early access: keep it that way, or update that
+sentence and add a privacy notice before collecting more. Turning on double opt-in in Reach is recommended.
 
-Each submission sends `email` plus an empty `_gotcha` honeypot field (Formspree drops entries where it is filled).
-Only `https://` endpoints are accepted. The page tells visitors their email is used only to invite them to early
-access: keep it that way, or update that sentence and add a privacy notice before collecting more.
+## Deploy on GitHub Pages
 
-## Deploy
+1. On GitHub, open the repository's **Settings → Pages**, choose **Deploy from a branch**, branch `main`, folder
+   `/ (root)`, and save.
+2. The site is served at **https://cosmoos.tech** (custom domain from the `CNAME` file; DNS at Hostinger points the
+   apex A/AAAA records at GitHub Pages and `www` at `jarihant701.github.io`). `jarihant701.github.io/cosmoos-launch/`
+   redirects there. The relay allows `https://cosmoos.tech`, `https://www.cosmoos.tech` and
+   `https://jarihant701.github.io`. Turn on **Enforce HTTPS** in Settings → Pages once the certificate is issued.
 
-Any static host works; upload the folder as-is:
+GitHub Pages from a **private** repository needs a paid GitHub plan (Pro, Team or Enterprise). On a free plan, make
+the repository public first (Settings → General → Danger Zone → Change visibility). The repository contains no
+secrets, so that is safe as long as the token only ever lives in the Worker secret.
 
-- **Cloudflare Pages:** create a project, choose direct upload, and drop this folder.
-- **Netlify:** drag this folder onto app.netlify.com/drop.
-- **GitHub Pages:** push this repository and enable Pages for the default branch, root folder.
-
-No server code, environment variables or secrets are involved.
+Any other static host (Cloudflare Pages, Netlify, Hostinger web hosting) also works: upload the folder as-is and add
+the new site origin to `ALLOWED_ORIGINS` in `worker/wrangler.toml`.
 
 ## Files
 
@@ -49,6 +53,8 @@ No server code, environment variables or secrets are involved.
 | `index.html` | The page: hero with the feedback-check demonstration, deal flow, features, principles, FAQ, waitlist. |
 | `styles.css` | All styling. Tokens follow the app's DESIGN.md: teal `#20B8B0`, midnight navy `#101B2D`, Manrope, 10px radius. |
 | `site.js` | Waitlist behaviour: reads the endpoint, submits with `fetch`, shows success or a retryable error. |
+| `worker/` | Cloudflare Worker relay to Hostinger Reach, its config (`wrangler.toml`), setup guide and tests. |
+| `package.json` | `npm test` runs the relay tests with Node's built-in runner (no dependencies). |
 | `favicon.svg`, `assets/brand/` | App mark (SVG) and PNG icons (192, 512). |
 | `assets/fonts/` | Manrope variable font (Latin and Latin Extended subsets) and its SIL Open Font License (`OFL.txt`). |
 
