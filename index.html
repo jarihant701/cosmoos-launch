@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CosmoOS · Your universe. One workspace.</title>
+    <meta
+      name="description"
+      content="CosmoOS is a creator operating system for brand deals: plan content, draft with AI you review, and check client feedback against the brief you approved. Join the waitlist for early access."
+    />
+    <meta name="theme-color" content="#101B2D" />
+    <!-- Waitlist: paste your form service's POST endpoint here (for example https://formspree.io/f/abcd1234).
+         While it is empty, both waitlist forms stay hidden and the page says the waitlist opens soon. -->
+    <meta name="waitlist-endpoint" content="" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/brand/icon-192.png" />
+    <link rel="apple-touch-icon" href="assets/brand/icon-192.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CosmoOS · Your universe. One workspace." />
+    <meta
+      property="og:description"
+      content="Plan content, draft with AI you review, and check client feedback against the brief you approved."
+    />
+    <meta property="og:image" content="assets/brand/icon-512.png" />
+    <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="wrap masthead__bar">
+        <a class="brand" href="#top" aria-label="CosmoOS home">
+          <img src="assets/brand/logo.svg" alt="" width="32" height="32" />
+          <span>CosmoOS</span>
+        </a>
+        <nav class="masthead__nav" aria-label="Sections">
+          <a href="#flow">How it works</a>
+          <a href="#features">Features</a>
+          <a href="#control">Your control</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a class="btn btn--small" href="#join">Join the waitlist</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Hero: the promise on the left, the mechanism working on the right. -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="wrap hero__grid">
+          <div class="hero__copy">
+            <h1 id="hero-title">Your universe. <span>One workspace.</span></h1>
+            <p class="hero__lede">
+              CosmoOS is a creator operating system for brand deals. Plan your content, draft it with AI you
+              review, and keep every deal tied to the brief you approved, so client feedback is checked against what
+              was actually agreed.
+            </p>
+
+            <form class="waitlist" data-waitlist method="POST" aria-labelledby="hero-form-title" hidden>
+              <h2 class="sr-only" id="hero-form-title">Join the waitlist</h2>
+              <div class="waitlist__row">
+                <label class="sr-only" for="hero-email">Email address</label>
+                <input
+                  id="hero-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  inputmode="email"
+                  placeholder="you@example.com"
+                  required
+                />
+                <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                <button class="btn" type="submit">Join the waitlist</button>
+              </div>
+              <p class="waitlist__note">Early access is opening in stages. We use your email only to invite you.</p>
+              <p class="waitlist__status" role="status" aria-live="polite"></p>
+            </form>
+            <p class="waitlist__closed" data-waitlist-closed>
+              The waitlist opens soon. Check back here for early access.
+            </p>
+          </div>
+
+          <figure class="demo" aria-labelledby="demo-title">
+            <div class="demo__head">
+              <p id="demo-title" class="demo__title">Feedback check</p>
+              <span class="demo__tag">Illustrative example</span>
+            </div>
+
+            <div class="demo__brief">
+              <p class="demo__label">Approved brief · version 2</p>
+              <ul>
+                <li>2 Instagram Reels, 30–45 seconds</li>
+                <li>1 round of revisions included</li>
+                <li>Organic use only, 3 months</li>
+              </ul>
+            </div>
+
+            <div class="demo__message">
+              <p class="demo__label">Client feedback</p>
+              <blockquote>
+                “Love the first cut! Could you also make a TikTok version, and can we run the reel as a paid ad next
+                month?”
+              </blockquote>
+            </div>
+
+            <ol class="demo__findings" aria-label="What CosmoOS flags">
+              <li class="finding finding--scope">
+                <span class="finding__kind">Possible scope change</span>
+                <p>A TikTok version is a new deliverable.</p>
+                <p class="finding__quote">Brief says: “2 Instagram Reels”</p>
+              </li>
+              <li class="finding finding--scope">
+                <span class="finding__kind">Possible scope change</span>
+                <p>Paid ads go beyond the agreed usage rights.</p>
+                <p class="finding__quote">Brief says: “Organic use only, 3 months”</p>
+              </li>
+              <li class="finding finding--ok">
+                <span class="finding__kind">Within scope</span>
+                <p>Feedback on the first cut uses your 1 included revision.</p>
+              </li>
+            </ol>
+            <figcaption class="demo__foot">
+              Findings are suggestions for you to review, each linked to a quote from your approved brief. Not legal
+              advice.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- The journey of one brand deal, on one orbit. -->
+      <section class="flow" id="flow" aria-labelledby="flow-title">
+        <div class="wrap">
+          <h2 id="flow-title" class="section-title">One brand deal, from brief to paid</h2>
+          <p class="section-lede">
+            Every collaboration becomes a project. Its brief, deliverables, content, feedback and invoice stay
+            connected, so nothing has to be pieced together from chats and spreadsheets.
+          </p>
+          <ol class="orbit">
+            <li>
+              <h3>Add the brand</h3>
+              <p>Keep each brand or client you work with, with their projects in one place.</p>
+            </li>
+            <li>
+              <h3>Upload the brief</h3>
+              <p>
+                AI pulls out deliverables, deadlines, payment terms and usage rights, each with a quote from the
+                document. You correct it and approve one version as the baseline.
+              </p>
+            </li>
+            <li>
+              <h3>Plan and create</h3>
+              <p>
+                Schedule posts in a list, calendar or board. Draft hooks, scripts and captions in AI Studio and save the
+                keepers to your plan.
+              </p>
+            </li>
+            <li>
+              <h3>Check the feedback</h3>
+              <p>
+                Paste client feedback to compare it with the approved brief, spot possible scope creep, and record
+                revision rounds against the agreed limit.
+              </p>
+            </li>
+            <li>
+              <h3>Get paid</h3>
+              <p>
+                Record invoices per project and see what is owed, overdue and received, in each currency, without
+                mixing them.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Four pillars as a plain, scannable index. -->
+      <section class="pillars" id="features" aria-labelledby="features-title">
+        <div class="wrap pillars__grid">
+          <div>
+            <h2 id="features-title" class="section-title">Everything your creator business orbits around</h2>
+            <p class="section-lede">Four connected parts of one workspace, built for creators who work with brands.</p>
+          </div>
+          <dl class="pillars__list">
+            <div>
+              <dt>Plan</dt>
+              <dd>
+                Ideas, drafts and posting dates for Instagram, YouTube, TikTok, LinkedIn and more, in a list, calendar
+                or board.
+              </dd>
+            </div>
+            <div>
+              <dt>Create</dt>
+              <dd>
+                AI Studio drafts content ideas, hooks, scripts, captions and hashtags, and repurposes content for
+                another platform. Every draft is yours to edit.
+              </dd>
+            </div>
+            <div>
+              <dt>Manage</dt>
+              <dd>
+                Brands, projects, briefs, deliverables, feedback and revision history, linked so each deal keeps its
+                own record.
+              </dd>
+            </div>
+            <div>
+              <dt>Grow</dt>
+              <dd>
+                A dashboard of what needs attention: deadlines, open deliverables, and invoices owed, overdue and paid.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- Product guarantees, stated plainly. -->
+      <section class="control" id="control" aria-labelledby="control-title">
+        <div class="wrap">
+          <h2 id="control-title" class="section-title">You decide what ships</h2>
+          <ul class="control__list">
+            <li>
+              <h3>Nothing posts or sends itself</h3>
+              <p>CosmoOS never publishes to your platforms or messages a client. You post and reply; it keeps the record.</p>
+            </li>
+            <li>
+              <h3>AI drafts, you approve</h3>
+              <p>
+                AI output stays a draft until you edit and save it, and AI never changes a brief, deliverable or revision
+                limit.
+              </p>
+            </li>
+            <li>
+              <h3>Your brief is the baseline</h3>
+              <p>Approved brief versions are locked and kept as history, so what was agreed cannot quietly drift.</p>
+            </li>
+            <li>
+              <h3>Private by default</h3>
+              <p>
+                Each workspace is isolated. Briefs and client feedback are treated as data, never as instructions, and
+                are sent to AI only with privacy-first routing when you choose to analyse them.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="faq" id="faq" aria-labelledby="faq-title">
+        <div class="wrap faq__grid">
+          <h2 id="faq-title" class="section-title">Questions</h2>
+          <div class="faq__list">
+            <details>
+              <summary>Can I use CosmoOS today?</summary>
+              <p>
+                Not publicly yet. CosmoOS is preparing a closed beta. Join the waitlist and you will get an invitation
+                when early access opens.
+              </p>
+            </details>
+            <details>
+              <summary>Who is it for?</summary>
+              <p>
+                Creators who work with brands: UGC creators, YouTubers, Instagram and TikTok creators, and freelance video
+                editors managing several clients at once.
+              </p>
+            </details>
+            <details>
+              <summary>Will it post to my social accounts?</summary>
+              <p>
+                No. The content planner records what you plan and publish; posting happens on your platforms, by you.
+              </p>
+            </details>
+            <details>
+              <summary>Is the feedback check legal advice?</summary>
+              <p>
+                No. It points out where client feedback may go beyond the brief you approved, with the quote it relied
+                on. You decide what counts as a change.
+              </p>
+            </details>
+            <details>
+              <summary>Does it process payments?</summary>
+              <p>
+                No. Payments in CosmoOS are records of the invoices you send, so you can see what is owed. Nothing is
+                charged through it.
+              </p>
+            </details>
+            <details>
+              <summary>How much will it cost?</summary>
+              <p>Pricing is not final yet. A limited free plan is planned alongside paid plans.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="join" id="join" aria-labelledby="join-title">
+        <div class="wrap join__inner">
+          <img class="join__mark" src="assets/brand/logo.svg" alt="" width="72" height="72" />
+          <h2 id="join-title">Bring your plans, projects and clients into one orbit.</h2>
+          <form class="waitlist waitlist--center" data-waitlist method="POST" aria-labelledby="join-title" hidden>
+            <div class="waitlist__row">
+              <label class="sr-only" for="join-email">Email address</label>
+              <input
+                id="join-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                placeholder="you@example.com"
+                required
+              />
+              <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <button class="btn" type="submit">Join the waitlist</button>
+            </div>
+            <p class="waitlist__note">We use your email only to invite you to early access.</p>
+            <p class="waitlist__status" role="status" aria-live="polite"></p>
+          </form>
+          <p class="waitlist__closed" data-waitlist-closed>
+            The waitlist opens soon. Check back here for early access.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__bar">
+        <a class="brand brand--small" href="#top" aria-label="CosmoOS home">
+          <img src="assets/brand/logo.svg" alt="" width="24" height="24" />
+          <span>CosmoOS</span>
+        </a>
+        <p>Creator Operating System · Your universe. One workspace.</p>
+      </div>
+    </footer>
+  </body>
+</html>
