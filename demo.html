@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Try the demo · CosmoOS</title>
+    <title>Interactive demo · CosmoOS</title>
     <meta
       name="description"
-      content="Try CosmoOS with a sample brand deal: track deliverables, plan posts and check client feedback against the approved brief. No sign-in, nothing saved."
+      content="Explore a sample CosmoOS project: track deliverables, plan content and check client feedback against an approved brief. No account, sample data only."
     />
     <meta name="theme-color" content="#101B2D" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -15,6 +15,7 @@
     <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="demo.css" />
+    <script src="analytics.js" defer></script>
     <script src="demo.js" defer></script>
   </head>
   <body>
@@ -26,138 +27,268 @@
           <img src="assets/brand/logo.svg" alt="" width="32" height="32" />
           <span>CosmoOS</span>
         </a>
-        <a class="btn btn--small" href="./#join">Join the waitlist</a>
+        <a class="btn btn--small" href="./#join" data-waitlist-link data-track-source="header">Join the waitlist</a>
       </div>
     </header>
 
     <main id="main" class="app">
-      <div class="wrap">
-        <div class="app__notice" role="note">
-          <strong>Demo with sample data.</strong> No sign-in and no AI. Nothing you do here is saved or sent anywhere:
-          reloading the page starts over.
-        </div>
-
-        <div class="app__head">
-          <div>
-            <p class="app__eyebrow">Project · Lumora Skin (sample brand)</p>
-            <h1>Summer serum launch</h1>
+      <!-- Intro: what this is, what to expect, two ways in. -->
+      <section class="intro" aria-labelledby="intro-title">
+        <div class="wrap">
+          <h1 id="intro-title">See how CosmoOS keeps your brand deals in one orbit.</h1>
+          <p class="intro__lede">
+            Explore a sample creator project, organize deliverables, plan content, and check client feedback against an
+            approved brief.
+          </p>
+          <ul class="intro__facts">
+            <li>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+              Takes about 60 seconds to explore
+            </li>
+            <li>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg>
+              No account required
+            </li>
+            <li>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+              Sample data only, nothing saved
+            </li>
+          </ul>
+          <div class="intro__actions">
+            <button class="btn" type="button" data-action="explore">Explore the sample project</button>
+            <button class="btn btn--quiet" type="button" data-action="jump-feedback">Try Feedback Check</button>
           </div>
-          <button class="app__reset" type="button" data-action="reset">Start over</button>
+        </div>
+      </section>
+
+      <div class="wrap workspace" id="workspace">
+        <div class="project">
+          <div class="project__title">
+            <h2>Summer serum launch</h2>
+            <p>Sample project with Lumora Skin, a fictional brand</p>
+          </div>
+          <div class="project__tools">
+            <label class="currency">
+              <span>Sample currency</span>
+              <select data-currency aria-describedby="currency-note">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="INR">INR</option>
+              </select>
+            </label>
+            <button class="link-btn" type="button" data-action="replay">Replay walkthrough</button>
+            <button class="link-btn" type="button" data-action="reset">Start over</button>
+          </div>
+          <p class="project__note" id="currency-note">
+            Amounts are sample figures for each currency, not exchange-rate conversions. The demo takes no payments.
+          </p>
         </div>
 
-        <!-- Grow: what needs attention, recalculated as you work. -->
-        <ul class="stats" aria-label="Project overview">
-          <li><span class="stats__value" data-stat="open">2</span><span class="stats__label">Open deliverables</span></li>
-          <li><span class="stats__value" data-stat="revisions">0 of 1</span><span class="stats__label">Revisions used</span></li>
-          <li><span class="stats__value" data-stat="posts">3</span><span class="stats__label">Posts planned this week</span></li>
-          <li><span class="stats__value" data-stat="owed">₹40,000</span><span class="stats__label">Owed to you</span></li>
-        </ul>
+        <!-- What needs attention, recalculated as you work. -->
+        <dl class="stats" aria-label="Project overview">
+          <div><dt>Open deliverables</dt><dd data-stat="open">2</dd></div>
+          <div><dt>Revisions used</dt><dd data-stat="revisions">0 of 1</dd></div>
+          <div><dt>Posts this week</dt><dd data-stat="posts">3</dd></div>
+          <div><dt>Owed to you</dt><dd data-stat="owed" data-tour="invoice-stat"></dd></div>
+        </dl>
         <p class="sr-only" role="status" aria-live="polite" data-live></p>
 
         <div class="tabs" role="tablist" aria-label="Demo sections">
           <button class="tabs__tab" role="tab" id="tab-deal" aria-controls="panel-deal" aria-selected="true">Deal</button>
           <button class="tabs__tab" role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="false" tabindex="-1">Planner</button>
-          <button class="tabs__tab" role="tab" id="tab-feedback" aria-controls="panel-feedback" aria-selected="false" tabindex="-1">Feedback check</button>
+          <button class="tabs__tab" role="tab" id="tab-feedback" aria-controls="panel-feedback" aria-selected="false" tabindex="-1">Feedback Check</button>
         </div>
 
-        <!-- Manage: the approved brief is the baseline for everything else. -->
-        <section class="panel" role="tabpanel" id="panel-deal" aria-labelledby="tab-deal" tabindex="0">
+        <!-- Guided walkthrough: inline, optional, never covers the controls it points at. -->
+        <section class="guide" data-guide aria-labelledby="guide-title" hidden>
+          <div class="guide__top">
+            <p class="guide__progress" data-guide-progress>Step 1 of 3</p>
+            <ol class="guide__dots" aria-hidden="true">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ol>
+            <button class="guide__close" type="button" data-guide-skip aria-label="Close the walkthrough">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            </button>
+          </div>
+          <h3 id="guide-title" class="guide__title" tabindex="-1" data-guide-title></h3>
+          <p class="guide__text" data-guide-text></p>
+          <p class="guide__task" data-guide-task>
+            <svg class="guide__check" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+            <span data-guide-task-text></span>
+          </p>
+          <div class="guide__nav">
+            <button class="btn btn--small btn--outline" type="button" data-guide-back>Back</button>
+            <button class="btn btn--small" type="button" data-guide-next>Next</button>
+            <button class="link-btn" type="button" data-guide-skip>Skip walkthrough</button>
+          </div>
+          <div class="guide__done" data-guide-done hidden>
+            <h3 class="guide__title" tabindex="-1" data-guide-done-title>That's the core of CosmoOS.</h3>
+            <p class="guide__text">
+              A brief you approved, a plan built from it, and feedback checked against it. Keep exploring, or join the
+              waitlist to hear when early access opens.
+            </p>
+            <div class="guide__nav">
+              <a class="btn btn--small" href="./#join" data-waitlist-link data-track-source="walkthrough">Join the waitlist</a>
+              <button class="link-btn" type="button" data-action="replay">Replay walkthrough</button>
+              <button class="link-btn" type="button" data-guide-skip>Close</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Deal: the approved brief is the baseline for everything else. -->
+        <section class="panel" role="tabpanel" id="panel-deal" aria-labelledby="tab-deal" tabindex="-1">
           <div class="panel__grid">
-            <div class="card">
-              <div class="card__head">
-                <h2>Approved brief</h2>
-                <span class="chip chip--locked">Version 2 · locked</span>
+            <div class="sheet" data-tour="brief">
+              <div class="sheet__head">
+                <h3>Approved brief</h3>
+                <span class="chip chip--locked">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>
+                  Version 2, locked
+                </span>
               </div>
               <dl class="brief">
                 <div><dt>Deliverables</dt><dd>2 Instagram Reels, 30–45 seconds</dd></div>
-                <div><dt>Revisions</dt><dd>1 round included</dd></div>
+                <div data-tour="revisions"><dt>Revisions</dt><dd>1 round included</dd></div>
                 <div><dt>Usage rights</dt><dd>Organic use only, 3 months</dd></div>
-                <div><dt>Fee</dt><dd>₹40,000, due 15 days after delivery</dd></div>
+                <div><dt>Fee</dt><dd data-fee-line></dd></div>
               </dl>
-              <p class="card__note">
-                In the app you upload the brief and AI extracts these terms with quotes for you to check. Once you
-                approve a version, it is locked as the baseline.
+              <p class="sheet__note">
+                In the full product you upload the brief and AI suggests these terms, each with a quote, for you to check.
+                The version you approve is locked as the baseline.
               </p>
             </div>
 
-            <div class="card">
-              <div class="card__head"><h2>Deliverables</h2></div>
-              <ul class="deliverables" data-list="deliverables"></ul>
+            <div class="sheet">
+              <div class="sheet__head"><h3>Deliverables</h3></div>
+              <ul class="rows" data-list="deliverables" data-tour="deliverables"></ul>
 
-              <div class="card__head card__head--spaced"><h2>Invoice</h2></div>
-              <div class="invoice">
+              <div class="sheet__head sheet__head--spaced"><h3>Invoice</h3></div>
+              <div class="invoice" data-tour="invoice">
                 <div>
-                  <p class="invoice__amount">₹40,000</p>
-                  <p class="invoice__meta" data-invoice-meta>Sent · waiting for payment</p>
+                  <p class="invoice__amount" data-invoice-amount></p>
+                  <p class="invoice__meta" data-invoice-meta></p>
                 </div>
-                <button class="btn btn--small btn--outline" type="button" data-action="toggle-paid">Mark as paid</button>
+                <button class="btn btn--small btn--outline" type="button" data-action="toggle-paid" aria-pressed="false">Mark as paid</button>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Plan: a simple week list. -->
-        <section class="panel" role="tabpanel" id="panel-plan" aria-labelledby="tab-plan" tabindex="0" hidden>
+        <!-- Planner: a simple week list. -->
+        <section class="panel" role="tabpanel" id="panel-plan" aria-labelledby="tab-plan" tabindex="-1" hidden>
           <div class="panel__grid panel__grid--plan">
-            <form class="card planner-form" data-form="post" novalidate>
-              <div class="card__head"><h2>Add a post</h2></div>
+            <form class="sheet planner-form" data-form="post" data-tour="post-form" novalidate>
+              <div class="sheet__head"><h3>Add a post</h3></div>
               <label for="post-title">Title</label>
-              <input id="post-title" name="title" type="text" maxlength="80" placeholder="e.g. Morning routine with the serum" required />
-              <label for="post-platform">Platform</label>
-              <select id="post-platform" name="platform">
-                <option>Instagram</option>
-                <option>YouTube</option>
-                <option>TikTok</option>
-                <option>LinkedIn</option>
-              </select>
-              <label for="post-day">Day</label>
-              <select id="post-day" name="day" data-days></select>
-              <p class="form-error" data-form-error></p>
+              <input id="post-title" name="title" type="text" maxlength="80" placeholder="e.g. Morning routine with the serum" aria-describedby="post-error" required />
+              <div class="planner-form__pair">
+                <div>
+                  <label for="post-platform">Platform</label>
+                  <select id="post-platform" name="platform">
+                    <option>Instagram</option>
+                    <option>YouTube</option>
+                    <option>TikTok</option>
+                    <option>LinkedIn</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="post-day">Day</label>
+                  <select id="post-day" name="day" data-days></select>
+                </div>
+              </div>
+              <p class="form-error" id="post-error" data-form-error></p>
               <button class="btn" type="submit">Add to plan</button>
             </form>
 
-            <div class="card">
-              <div class="card__head">
-                <h2>This week</h2>
-                <span class="card__hint">Click a status to move it along</span>
+            <div class="sheet" data-tour="week">
+              <div class="sheet__head">
+                <h3>This week</h3>
+                <p class="sheet__hint" data-tour="status-hint">Tap a status to move it along: Idea, Drafted, Scheduled, Posted</p>
               </div>
               <ol class="week" data-list="week"></ol>
             </div>
           </div>
         </section>
 
-        <!-- Feedback check: pre-written results for three sample messages. -->
-        <section class="panel" role="tabpanel" id="panel-feedback" aria-labelledby="tab-feedback" tabindex="0" hidden>
-          <div class="panel__grid">
-            <div class="card">
-              <div class="card__head"><h2>Pick a client message</h2></div>
-              <p class="card__note card__note--top">
-                In the app you paste any feedback and AI compares it with your approved brief. This demo has no AI, so
-                choose one of these sample messages.
-              </p>
-              <div class="samples" role="radiogroup" aria-label="Sample client messages" data-list="samples"></div>
-            </div>
+        <!-- Feedback Check: predefined results for three sample messages. -->
+        <section class="panel" role="tabpanel" id="panel-feedback" aria-labelledby="tab-feedback" tabindex="-1" hidden>
+          <div class="check-intro">
+            <h3>Know when client feedback changes the deal.</h3>
+            <p>
+              Choose a sample client message to see which requests fit the approved brief and which may change the
+              agreed scope.
+            </p>
+            <p class="check-intro__label">Interactive example: predefined results, no live AI.</p>
+          </div>
 
-            <div class="card" aria-live="polite">
-              <div class="card__head"><h2>What CosmoOS flags</h2></div>
-              <ol class="demo__findings" data-list="findings"></ol>
-              <div class="feedback-actions" data-feedback-actions hidden>
-                <button class="btn btn--small" type="button" data-action="record-revision">Record as a revision round</button>
-                <p class="feedback-actions__note" data-revision-note></p>
+          <div class="panel__grid panel__grid--check">
+            <fieldset class="messages" data-tour="samples">
+              <legend>Sample messages from Lumora Skin</legend>
+              <div data-list="samples"></div>
+            </fieldset>
+
+            <div class="results" data-tour="findings">
+              <div data-results-empty class="results__empty">
+                <p class="results__empty-title">No message selected</p>
+                <p>Pick a sample message to compare it with the approved brief.</p>
               </div>
-              <p class="demo__foot">
-                Findings are suggestions for you to review, each linked to a quote from your approved brief. Not legal
-                advice. Nothing is sent to the client.
-              </p>
+              <div data-results hidden>
+                <div class="results__group" data-group="scope">
+                  <h4 class="results__heading">
+                    <svg class="icon-warn" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l9 16H3z" /><path d="M12 10v4M12 17.5v.5" /></svg>
+                    <span data-scope-heading></span>
+                  </h4>
+                  <ol class="findings" data-list="scope"></ol>
+                </div>
+                <div class="results__group" data-group="ok">
+                  <h4 class="results__heading">
+                    <svg class="icon-ok" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="9" /><path d="M8 12.5l2.5 2.5L16 9.5" /></svg>
+                    <span data-ok-heading></span>
+                  </h4>
+                  <ol class="findings" data-list="ok"></ol>
+                </div>
+
+                <div class="revision" data-tour="revision">
+                  <h4 class="results__heading">Revision impact</h4>
+                  <p class="revision__meter" data-revision-meter></p>
+                  <p class="revision__text" data-revision-text></p>
+                  <button class="btn btn--small" type="button" data-action="record-revision">Record as a revision round</button>
+                  <p class="revision__confirm" data-revision-confirm role="status"></p>
+                </div>
+
+                <p class="results__value">
+                  CosmoOS helps you review requests against the brief you approved, so you can make informed decisions
+                  before accepting extra work. Suggestions only, not legal advice; nothing is sent to the client.
+                </p>
+                <p class="results__more">
+                  Want this for your own brand deals?
+                  <a href="./#join" data-waitlist-link data-track-source="feedback">Join the waitlist</a>
+                </p>
+              </div>
             </div>
           </div>
         </section>
-
-        <div class="app__cta">
-          <p>Like it? CosmoOS is opening in stages.</p>
-          <a class="btn" href="./#join">Join the waitlist</a>
-        </div>
       </div>
+
+      <!-- Closing call to action: the homepage waitlist keeps the one Reach form. -->
+      <section class="closing" aria-labelledby="closing-title">
+        <div class="wrap closing__inner">
+          <div>
+            <h2 id="closing-title">Ready to bring your creative work together?</h2>
+            <p>
+              You've explored a sample brand deal. Join the CosmoOS waitlist to hear about early access and help shape
+              what's next.
+            </p>
+          </div>
+          <div class="closing__actions">
+            <a class="btn" href="./#join" data-waitlist-link data-track-source="closing">Join the waitlist</a>
+            <a class="closing__back" href="./">Back to the website</a>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">

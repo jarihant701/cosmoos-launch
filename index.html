@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="styles.css" />
     <!-- Waitlist: Hostinger Reach signup form "CosmoOs", embedded in an iframe (see README). -->
     <script src="https://cdn-reach.hostinger.com/js/embed.js" defer></script>
+    <script src="analytics.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -39,8 +40,8 @@
           <a href="#control">Your control</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <a class="btn btn--small btn--ghost masthead__try" href="demo.html">Try the demo</a>
-        <a class="btn btn--small" href="#join">Join the waitlist</a>
+        <a class="btn btn--small btn--ghost masthead__try" href="demo.html" data-track="homepage_demo_clicked" data-track-source="header">Try the demo</a>
+        <a class="btn btn--small" href="#join" data-track="homepage_waitlist_clicked" data-track-source="header">Join the waitlist</a>
       </div>
     </header>
 
@@ -57,11 +58,11 @@
             </p>
 
             <div class="hero__try">
-              <a class="btn btn--ghost" href="demo.html">Try the demo</a>
-              <span>No sign-up. Sample data, nothing saved.</span>
+              <a class="btn btn--ghost" href="demo.html" data-track="homepage_demo_clicked" data-track-source="hero">Try the interactive demo</a>
+              <span>A sample brand deal to click through. No account, nothing saved.</span>
             </div>
             <p class="hero__or">Or join the waitlist for early access:</p>
-            <div class="waitlist" data-reach-form="34a947fa-79d6-45b9-97e0-df93e1c061fc" aria-label="Join the waitlist"></div>
+            <div class="waitlist" data-track-source="hero" data-reach-form="34a947fa-79d6-45b9-97e0-df93e1c061fc" aria-label="Join the waitlist"></div>
             <noscript><p class="waitlist__closed"><a href="https://reach-forms.hostingerusercontent.com/form/34a947fa-79d6-45b9-97e0-df93e1c061fc">Join the waitlist</a></p></noscript>
             <p class="waitlist__consent">By joining, you agree to get emails about CosmoOS early access. Unsubscribe any time. <a href="privacy.html">Privacy notice</a></p>
           </div>
@@ -107,7 +108,7 @@
             </ol>
             <figcaption class="demo__foot">
               Findings are suggestions for you to review, each linked to a quote from your approved brief. Not legal
-              advice. <a href="demo.html">Try it with other messages</a>
+              advice. <a href="demo.html" data-track="homepage_demo_clicked" data-track-source="example">Try it with other messages</a>
             </figcaption>
           </figure>
         </div>
@@ -236,8 +237,8 @@
               <summary>Can I use CosmoOS today?</summary>
               <p>
                 Not publicly yet. CosmoOS is preparing a closed beta. Join the waitlist and you will get an invitation
-                when early access opens. Meanwhile, <a href="demo.html">try the demo</a> with a sample brand deal: no
-                sign-up, and nothing is saved.
+                when early access opens. Meanwhile, <a href="demo.html" data-track="homepage_demo_clicked" data-track-source="faq">try the interactive demo</a>: a
+                sample brand deal with sample data, not the full product. No sign-up, and nothing is saved.
               </p>
             </details>
             <details>
@@ -279,7 +280,7 @@
         <div class="wrap join__inner">
           <img class="join__mark" src="assets/brand/logo.svg" alt="" width="72" height="72" />
           <h2 id="join-title">Bring your plans, projects and clients into one orbit.</h2>
-          <div class="waitlist waitlist--center" data-reach-form="34a947fa-79d6-45b9-97e0-df93e1c061fc" aria-label="Join the waitlist"></div>
+          <div class="waitlist waitlist--center" data-track-source="closing" data-reach-form="34a947fa-79d6-45b9-97e0-df93e1c061fc" aria-label="Join the waitlist"></div>
           <noscript><p class="waitlist__closed"><a href="https://reach-forms.hostingerusercontent.com/form/34a947fa-79d6-45b9-97e0-df93e1c061fc">Join the waitlist</a></p></noscript>
           <p class="waitlist__consent">By joining, you agree to get emails about CosmoOS early access. Unsubscribe any time. <a href="privacy.html">Privacy notice</a></p>
         </div>
