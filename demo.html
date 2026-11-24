@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Try the demo · CosmoOS</title>
+    <meta
+      name="description"
+      content="Try CosmoOS with a sample brand deal: track deliverables, plan posts and check client feedback against the approved brief. No sign-in, nothing saved."
+    />
+    <meta name="theme-color" content="#101B2D" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/brand/icon-192.png" />
+    <link rel="apple-touch-icon" href="assets/brand/icon-192.png" />
+    <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="demo.css" />
+    <script src="demo.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="wrap masthead__bar">
+        <a class="brand" href="./" aria-label="CosmoOS home">
+          <img src="assets/brand/logo.svg" alt="" width="32" height="32" />
+          <span>CosmoOS</span>
+        </a>
+        <a class="btn btn--small" href="./#join">Join the waitlist</a>
+      </div>
+    </header>
+
+    <main id="main" class="app">
+      <div class="wrap">
+        <div class="app__notice" role="note">
+          <strong>Demo with sample data.</strong> No sign-in and no AI. Nothing you do here is saved or sent anywhere:
+          reloading the page starts over.
+        </div>
+
+        <div class="app__head">
+          <div>
+            <p class="app__eyebrow">Project · Lumora Skin (sample brand)</p>
+            <h1>Summer serum launch</h1>
+          </div>
+          <button class="app__reset" type="button" data-action="reset">Start over</button>
+        </div>
+
+        <!-- Grow: what needs attention, recalculated as you work. -->
+        <ul class="stats" aria-label="Project overview">
+          <li><span class="stats__value" data-stat="open">2</span><span class="stats__label">Open deliverables</span></li>
+          <li><span class="stats__value" data-stat="revisions">0 of 1</span><span class="stats__label">Revisions used</span></li>
+          <li><span class="stats__value" data-stat="posts">3</span><span class="stats__label">Posts planned this week</span></li>
+          <li><span class="stats__value" data-stat="owed">₹40,000</span><span class="stats__label">Owed to you</span></li>
+        </ul>
+        <p class="sr-only" role="status" aria-live="polite" data-live></p>
+
+        <div class="tabs" role="tablist" aria-label="Demo sections">
+          <button class="tabs__tab" role="tab" id="tab-deal" aria-controls="panel-deal" aria-selected="true">Deal</button>
+          <button class="tabs__tab" role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="false" tabindex="-1">Planner</button>
+          <button class="tabs__tab" role="tab" id="tab-feedback" aria-controls="panel-feedback" aria-selected="false" tabindex="-1">Feedback check</button>
+        </div>
+
+        <!-- Manage: the approved brief is the baseline for everything else. -->
+        <section class="panel" role="tabpanel" id="panel-deal" aria-labelledby="tab-deal" tabindex="0">
+          <div class="panel__grid">
+            <div class="card">
+              <div class="card__head">
+                <h2>Approved brief</h2>
+                <span class="chip chip--locked">Version 2 · locked</span>
+              </div>
+              <dl class="brief">
+                <div><dt>Deliverables</dt><dd>2 Instagram Reels, 30–45 seconds</dd></div>
+                <div><dt>Revisions</dt><dd>1 round included</dd></div>
+                <div><dt>Usage rights</dt><dd>Organic use only, 3 months</dd></div>
+                <div><dt>Fee</dt><dd>₹40,000, due 15 days after delivery</dd></div>
+              </dl>
+              <p class="card__note">
+                In the app you upload the brief and AI extracts these terms with quotes for you to check. Once you
+                approve a version, it is locked as the baseline.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card__head"><h2>Deliverables</h2></div>
+              <ul class="deliverables" data-list="deliverables"></ul>
+
+              <div class="card__head card__head--spaced"><h2>Invoice</h2></div>
+              <div class="invoice">
+                <div>
+                  <p class="invoice__amount">₹40,000</p>
+                  <p class="invoice__meta" data-invoice-meta>Sent · waiting for payment</p>
+                </div>
+                <button class="btn btn--small btn--outline" type="button" data-action="toggle-paid">Mark as paid</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Plan: a simple week list. -->
+        <section class="panel" role="tabpanel" id="panel-plan" aria-labelledby="tab-plan" tabindex="0" hidden>
+          <div class="panel__grid panel__grid--plan">
+            <form class="card planner-form" data-form="post" novalidate>
+              <div class="card__head"><h2>Add a post</h2></div>
+              <label for="post-title">Title</label>
+              <input id="post-title" name="title" type="text" maxlength="80" placeholder="e.g. Morning routine with the serum" required />
+              <label for="post-platform">Platform</label>
+              <select id="post-platform" name="platform">
+                <option>Instagram</option>
+                <option>YouTube</option>
+                <option>TikTok</option>
+                <option>LinkedIn</option>
+              </select>
+              <label for="post-day">Day</label>
+              <select id="post-day" name="day" data-days></select>
+              <p class="form-error" data-form-error></p>
+              <button class="btn" type="submit">Add to plan</button>
+            </form>
+
+            <div class="card">
+              <div class="card__head">
+                <h2>This week</h2>
+                <span class="card__hint">Click a status to move it along</span>
+              </div>
+              <ol class="week" data-list="week"></ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Feedback check: pre-written results for three sample messages. -->
+        <section class="panel" role="tabpanel" id="panel-feedback" aria-labelledby="tab-feedback" tabindex="0" hidden>
+          <div class="panel__grid">
+            <div class="card">
+              <div class="card__head"><h2>Pick a client message</h2></div>
+              <p class="card__note card__note--top">
+                In the app you paste any feedback and AI compares it with your approved brief. This demo has no AI, so
+                choose one of these sample messages.
+              </p>
+              <div class="samples" role="radiogroup" aria-label="Sample client messages" data-list="samples"></div>
+            </div>
+
+            <div class="card" aria-live="polite">
+              <div class="card__head"><h2>What CosmoOS flags</h2></div>
+              <ol class="demo__findings" data-list="findings"></ol>
+              <div class="feedback-actions" data-feedback-actions hidden>
+                <button class="btn btn--small" type="button" data-action="record-revision">Record as a revision round</button>
+                <p class="feedback-actions__note" data-revision-note></p>
+              </div>
+              <p class="demo__foot">
+                Findings are suggestions for you to review, each linked to a quote from your approved brief. Not legal
+                advice. Nothing is sent to the client.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="app__cta">
+          <p>Like it? CosmoOS is opening in stages.</p>
+          <a class="btn" href="./#join">Join the waitlist</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__bar">
+        <a class="brand brand--small" href="./" aria-label="CosmoOS home">
+          <img src="assets/brand/logo.svg" alt="" width="24" height="24" />
+          <span>CosmoOS</span>
+        </a>
+        <p>Creator Operating System · Your universe. One workspace.</p>
+        <nav class="social" aria-label="CosmoOS links">
+          <a href="privacy.html">Privacy</a>
+          <a href="https://www.instagram.com/cosmoos.tech/" rel="noopener" target="_blank">Instagram</a>
+          <a href="https://www.linkedin.com/company/cosmoos-tech/" rel="noopener" target="_blank">LinkedIn</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

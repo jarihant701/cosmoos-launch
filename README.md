@@ -1,7 +1,7 @@
 # CosmoOS launch site
 
 A static, single-page launch site for **CosmoOS** ("Your universe. One workspace."), the creator operating system
-for brand deals. Plain HTML and CSS: no build step, no framework. The only third-party code is Hostinger Reach's form embed
+for brand deals. Plain HTML and CSS, plus a small vanilla-JS demo page: no build step, no framework. The only third-party code is Hostinger Reach's form embed
 script; the Manrope font is self-hosted.
 
 ## Run it locally
@@ -53,6 +53,7 @@ Any other static host (Cloudflare Pages, Netlify, Hostinger web hosting) also wo
 | Path | Purpose |
 |---|---|
 | `index.html` | The page: hero with the feedback-check demonstration, deal flow, features, principles, FAQ, waitlist. |
+| `demo.html`, `demo.js`, `demo.css` | Try-it demo with a sample brand deal: deliverables, invoice, a week planner and a feedback check on three sample messages. Runs in memory only: no sign-in, storage, network calls or AI; reloading resets it. |
 | `privacy.html` | Privacy notice for the waitlist, linked from the forms and footer. |
 | `styles.css` | All styling. Tokens follow the app's DESIGN.md: teal `#20B8B0`, midnight navy `#101B2D`, Manrope, 10px radius. |
 | `favicon.svg`, `assets/brand/` | App mark (SVG) and PNG icons (192, 512). |
