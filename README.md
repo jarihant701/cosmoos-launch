@@ -1,8 +1,8 @@
 # CosmoOS launch site
 
 A static, single-page launch site for **CosmoOS** ("Your universe. One workspace."), the creator operating system
-for brand deals. Plain HTML, CSS and a little vanilla JavaScript (the demo and an analytics-ready event layer): no build step, no framework. The only third-party code is Hostinger Reach's form embed
-script; the Manrope font is self-hosted.
+for brand deals. Plain HTML, CSS and a little vanilla JavaScript (the demo and an analytics-ready event layer): no build step, no framework. The only third-party scripts are Hostinger Reach's form embed
+and the Cloudflare Web Analytics beacon; the Manrope font is self-hosted.
 
 ## Run it locally
 
@@ -27,7 +27,7 @@ and the thank-you state, so the site holds no API token and no form code of its 
   form, pause it and set it active again to publish the change.
 - **Turning the waitlist off:** pause the form in Reach. The iframe then stops accepting submissions.
 - **Privacy:** [`privacy.html`](privacy.html) is the privacy notice (India DPDP Act 2023 and GDPR basics: what is
-  collected, why, Hostinger and GitHub as processors, retention, rights, contact `hello@cosmoos.tech`). A consent line
+  collected, why, Hostinger, GitHub and Cloudflare as processors, retention, rights, contact `hello@cosmoos.tech`). A consent line
   under each form links to it, the footer links to it, and Reach's profile `privacy_policy_url` points at it. Update the
   notice and its "Last updated" date before collecting anything beyond an email address or using it for a new
   purpose. It has not been reviewed by a lawyer.
@@ -58,9 +58,21 @@ storage, cookies, network calls or AI. Reloading resets it.
 
 To change the sample data, edit `freshState()`, `SAMPLES`, `TOUR` and `CURRENCIES` at the top of `demo.js`.
 
+## Cloudflare Web Analytics
+
+`index.html`, `demo.html` and `privacy.html` load Cloudflare's cookieless Web Analytics beacon just before
+`</body>`. It reports page views, visits, referrers, countries, devices and page-load performance to the Cloudflare
+dashboard (Analytics & Logs, then Web Analytics, site `cosmoos.tech`). The `token` in the snippet is a public site
+identifier designed to be in page source; it is not a secret. Cloudflare only records visits on the hostname the site
+is registered for, so local runs on `localhost` are not counted. Data can take a few minutes to appear.
+
+Cloudflare Web Analytics does not accept custom events, so the demo events below stay in the browser. To remove
+analytics, delete the beacon `<script>` from the three pages and the Cloudflare line from `privacy.html`. If you add
+any other page, add the beacon to it too.
+
 ## Analytics events
 
-`analytics.js` defines `window.cosmoosAnalytics.track(name, props)`. No analytics provider is connected: each event
+`analytics.js` defines `window.cosmoosAnalytics.track(name, props)`. No provider receives these events (Cloudflare Web Analytics counts page views only): each event
 is appended to the in-memory `window.cosmoosAnalytics.events` list and dispatched as a `cosmoos:analytics`
 `CustomEvent` on `window` (detail: `{ name, props, at }`). Nothing leaves the browser, and no cookies, storage or
 identifiers are used. To connect a provider later, add one listener for `cosmoos:analytics` and forward events.
